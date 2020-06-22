@@ -46,7 +46,7 @@ looks like I have 2 directories and 15 files
 
 Another way to count the items in a directory
 
-	```sh
+	
 	[ss45w@ghpcc06 home]$ cd ~
 	[ss45w@ghpcc06 ~]$ pwd
 	/home/ss45w
@@ -57,7 +57,7 @@ Another way to count the items in a directory
 	2833
 	[ss45w@ghpcc06 home]$ ls | wc -l
 	2833
-	```
+	
 
 4. **Make a directory called problemsets.**
 Use mkdir for this one
