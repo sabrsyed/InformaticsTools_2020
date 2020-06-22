@@ -1,0 +1,45 @@
+Commands for running ChIP-Seq pipeline
+
+#Single-end alignment
+#.fastq --> .sam using bowtie2 default settings 
+
+#example (run the command in the same folder that contains your .fq files)
+ 
+$ module load bowtie2/2.3.4.3
+
+$ bsub -q long -o log -n 1 -R rusage[mem=20000] -R span[hosts=1] -W 480 "bowtie2 -x /share/data/umw_biocore/genome_data/mouse/mm10/mm10 -q /nl/umw_anthony_imbalzano/Sabriya/TereChIP/ProlnoCu_IN_rep1.fq.gz -S ProlnoCu_IN_rep1.sam"
+
+$ bsub -q long -o log -n 1 -R rusage[mem=20000] -R span[hosts=1] -W 480 "bowtie2 -x /share/data/umw_biocore/genome_data/mouse/mm10/mm10 -q ProlnoCu_IN_rep1.fq.gz -S ProlnoCu_IN_rep1.sam"
+
+
+#Picard
+#sam --> sorted bam
+
+#example
+
+$module load picard/2.17.8
+
+bsub -o log -n 1 -q short -R rusage[mem=20000] -W240 "java -jar /share/pkg/picard/2.17.8/picard.jar SortSam I=/nl/umw_anthony_imbalzano/Sabriya/TereChIP/ProlnoCu_IN_rep1.sam O=ProlnoCu_IN_rep1.sorted.bam SO=coordinate"
+
+
+#MarkDuplicates 
+#remove PCR duplicates
+
+#example
+
+bsub -o logX -n 1 -q short -R rusage[mem=20000] -W240 "java -jar /share/pkg/picard/2.17.8/picard.jar MarkDuplicates I=/nl/umw_anthony_imbalzano/Sabriya/TereChIP/ProlnoCu_IN_rep1.sorted.bam O=ProlnoCu_IN_rep1_sorted.dedup.bam M=markdup_metrics.txt REMOVE_DUPLICATES=true"
+
+
+#MAPQ Filter
+#select only high quality reads
+
+#example 
+
+bsub -n 1 -o logW -q short -R rusage[mem=20000] -W240 "samtools view -q 20 -b ProlnoCu_IN_rep1_sorted.dedup.bam > ProlnoCu_IN_rep1_sorted.dedup.q20.bam"
+
+
+#BuildBamIndex
+#an index file that's needed for processing .bam files for data analysis
+
+#example
+bsub -o log3 -n 1 -q short -R rusage[mem=20000] -W240 "java -jar /share/pkg/picard/2.17.8/picard.jar BuildBamIndex I=ProlnoCu_IN_rep1_sorted.dedup.q20.bam"
