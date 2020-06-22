@@ -81,7 +81,7 @@ Problem Set
 
 5. Navigate into this new directory called problemsets. Verify that you are in the correct directory by using `pwd`.
 
-6. Use `wget` to copy <https://raw.githubusercontent.com/sabrsyed/pfb2017/master/files/seq.nt.fa> from the web into your problemsets directory. If `wget` is not available on your system, use `curl -O` as an alternative.
+6. Use `wget` to copy <https://raw.githubusercontent.com/prog4biol/pfb2017/master/files/sequences.nt.fa> from the web into your problemsets directory. If `wget` is not available on your system, use `curl -O` as an alternative.
 
 7. Without using a text editor calculate or report these qualities for the file `sequences.nt.fa`.
   This file can be found here <https://raw.githubusercontent.com/sabrsyed/pfb2017/master/files/sequences.nt.fa>
