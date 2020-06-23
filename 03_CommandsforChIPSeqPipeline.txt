@@ -7,9 +7,9 @@ Commands for running ChIP-Seq pipeline
  
 $ module load bowtie2/2.3.4.3
 
-$ bsub -q long -o log -n 1 -R rusage[mem=20000] -R span[hosts=1] -W 480 "bowtie2 -x /share/data/umw_biocore/genome_data/mouse/mm10/mm10 -q /nl/umw_anthony_imbalzano/Sabriya/TereChIP/ProlnoCu_IN_rep1.fq.gz -S ProlnoCu_IN_rep1.sam"
+$ bsub -q long -o log -n 2 -R rusage[mem=20000] -R span[hosts=1] -W 480 "bowtie2 -x /share/data/umw_biocore/genome_data/mouse/mm10/mm10 -q /nl/umw_anthony_imbalzano/Sabriya/TereChIP/ProlnoCu_IN_rep1.fq.gz -S ProlnoCu_IN_rep1.sam"
 
-$ bsub -q long -o log -n 1 -R rusage[mem=20000] -R span[hosts=1] -W 480 "bowtie2 -x /share/data/umw_biocore/genome_data/mouse/mm10/mm10 -q ProlnoCu_IN_rep1.fq.gz -S ProlnoCu_IN_rep1.sam"
+$ bsub -q long -o log -n 2 -R rusage[mem=20000] -R span[hosts=1] -W 480 "bowtie2 -x /share/data/umw_biocore/genome_data/mouse/mm10/mm10 -q ProlnoCu_IN_rep1.fq.gz -S ProlnoCu_IN_rep1.sam"
 
 
 #Picard
