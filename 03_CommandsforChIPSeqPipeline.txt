@@ -17,9 +17,9 @@ $ bsub -q long -o log -n 2 -R rusage[mem=20000] -R span[hosts=1] -W 480 "bowtie2
 
 #example
 
-$module load picard/2.17.8
+$ module load picard/2.17.8
 
-bsub -o log -n 1 -q short -R rusage[mem=20000] -W240 "java -jar /share/pkg/picard/2.17.8/picard.jar SortSam I=/nl/umw_anthony_imbalzano/Sabriya/TereChIP/ProlnoCu_IN_rep1.sam O=ProlnoCu_IN_rep1.sorted.bam SO=coordinate"
+$ bsub -o log -n 1 -q short -R rusage[mem=20000] -W240 "java -jar /share/pkg/picard/2.17.8/picard.jar SortSam I=/nl/umw_anthony_imbalzano/Sabriya/TereChIP/ProlnoCu_IN_rep1.sam O=ProlnoCu_IN_rep1.sorted.bam SO=coordinate"
 
 
 #MarkDuplicates 
@@ -27,7 +27,7 @@ bsub -o log -n 1 -q short -R rusage[mem=20000] -W240 "java -jar /share/pkg/picar
 
 #example
 
-bsub -o logX -n 1 -q short -R rusage[mem=20000] -W240 "java -jar /share/pkg/picard/2.17.8/picard.jar MarkDuplicates I=/nl/umw_anthony_imbalzano/Sabriya/TereChIP/ProlnoCu_IN_rep1.sorted.bam O=ProlnoCu_IN_rep1_sorted.dedup.bam M=markdup_metrics.txt REMOVE_DUPLICATES=true"
+$ bsub -o logX -n 1 -q short -R rusage[mem=20000] -W240 "java -jar /share/pkg/picard/2.17.8/picard.jar MarkDuplicates I=/nl/umw_anthony_imbalzano/Sabriya/TereChIP/ProlnoCu_IN_rep1.sorted.bam O=ProlnoCu_IN_rep1_sorted.dedup.bam M=markdup_metrics.txt REMOVE_DUPLICATES=true"
 
 
 #MAPQ Filter
@@ -35,7 +35,9 @@ bsub -o logX -n 1 -q short -R rusage[mem=20000] -W240 "java -jar /share/pkg/pica
 
 #example 
 
-bsub -n 1 -o logW -q short -R rusage[mem=20000] -W240 "samtools view -q 20 -b ProlnoCu_IN_rep1_sorted.dedup.bam > ProlnoCu_IN_rep1_sorted.dedup.q20.bam"
+$ module load samtools/1.9
+
+$ bsub -n 1 -o logW -q short -R rusage[mem=20000] -W240 "samtools view -q 20 -b ProlnoCu_IN_rep1_sorted.dedup.bam > ProlnoCu_IN_rep1_sorted.dedup.q20.bam"
 
 
 #BuildBamIndex
