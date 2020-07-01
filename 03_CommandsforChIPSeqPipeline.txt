@@ -11,6 +11,9 @@ $ bsub -q long -o log -n 2 -R rusage[mem=20000] -R span[hosts=1] -W 480 "bowtie2
 
 $ bsub -q long -o log -n 2 -R rusage[mem=20000] -R span[hosts=1] -W 480 "bowtie2 -x /share/data/umw_biocore/genome_data/mouse/mm10/mm10 -q ProlnoCu_IN_rep1.fq.gz -S ProlnoCu_IN_rep1.sam"
 
+#Paired-end alignment
+
+$ bsub -q long -n 2 -R rusage[mem=20000] -R span[hosts=1] -W 480 "bowtie2 -x /share/data/umw_biocore/genome_data/mouse/mm10/mm10 -q -1 Run1_R1.fastq.bz2 -2 Run1_R2.fastq.bz2 -S Run1.sam"
 
 #Picard
 #sam --> sorted bam
