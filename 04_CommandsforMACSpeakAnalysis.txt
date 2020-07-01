@@ -1,0 +1,16 @@
+Commands for MACS peak analysis 
+
+#MACS_peak_analysis
+# ChIP.bam and input.bam —> peak analysis
+
+$ module load macs/1.4.2
+
+$ bsub -q short -o log5 -n 2 -R rusage[mem=20000] -W120 -R span[hosts=1] "macs2 callpeak -t ProlnoCu_IP_rep1.sorted.dedup.q20.bam -c ProlnoCu_IN_rep1_sorted.dedup.q20.bam -f BAM -g mm -q 0.05 -n ProlnoCu _rep1_q0.05"
+
+#If ChIP-Seq  is paired-end:
+
+$ bsub -q short -n 1 -R rusage[mem=20000] -W120 "macs2 callpeak -t ProlnoCu_IP_rep1_sorted.dedup.q20.bam -c ProlnoCu_IN_rep1_sorted.dedup.q20.bam -f BAMPE -g mm -q 0.05 -n D1Prmt5_n1n2_q0.05_PE"
+
+# For broader peaks, another option (but better broad peak software exists):
+
+bsub -q short -o log -n 1 -R rusage[mem=20000] -W120 "macs2 callpeak -t ProlnoCu_IP_rep1_sorted.dedup.q20.bam -c ProlnoCu_IN_rep1_sorted.dedup.q20.bam -f BAM -g mm --broad --broad-cutoff 0.05 -n D2_H3k27me3_q0.1"
