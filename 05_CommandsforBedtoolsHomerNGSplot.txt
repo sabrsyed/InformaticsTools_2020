@@ -1,0 +1,61 @@
+Commands for bedtools
+
+#bedtools intersect
+#find the intersection of 2 .bed files
+
+$ module load bedtools/2.27.1
+
+$ bsub -q short -o log5 -n 2 -R rusage[mem=20000] -W120 -R span[hosts=1] "bedtools intersect -a A.bed -b B.bed > overlap.txt"
+
+$ bsub -q short -o log5 -n 2 -R rusage[mem=20000] -W120 -R span[hosts=1] "bedtools intersect -a A.bed -b B.bed -wa > overlapwithAfeatures.txt"
+
+
+# instead of the intersection,  bedtools intersect can be used to identify features in file A that do not overlap features in file B
+
+$ bsub -q short -o log5 -n 2 -R rusage[mem=20000] -W120 -R span[hosts=1] "bedtools intersect -a A.bed -b B.bed -v > AdoesnotoverlapBfile.txt"
+
+
+Commands for HOMER
+
+#HOMER, a suite of tools for Motif Discovery and next-gen sequencing analysis
+
+#annotate a .bed file
+
+$ module load HOMER/4.6
+
+$ bsub -o logT -n 1 -q short -R rusage[mem=60000] -W240 "annotatePeaks.pl PlusCu_peakFile.bed mm10 > PlusCu_peakFile_annotation"
+
+
+#motif analysis of genomic regions (ChIP-Seq peaks, or promoters of specified gene list)
+
+$ bsub -o logT -n 1 -q short -R rusage[mem=60000] -W240 "findMotifsGenome.pl MACSoutput.narrowPeak.bed mm10 MACS_motif -size given -preparsedDir"
+
+
+Commands for NGSplot
+
+#Quick mining and visualization of NGS data by integrating genomic databases
+
+$ module load ngsplot/2.63
+$ module unload R/3.1.0
+$ module load R/3.6.0
+$ Rscript -e "library(doMC)"
+$ Rscript -e "library(caTools)"
+$ Rscript -e "library(BSgenome)"
+$ Rscript -e "library(Rsamtools)"
+$ Rscript -e "library(ShortRead)"
+
+#tag density plot of gene body ChIP binding with K-means clustering
+
+$ bsub -o logT -n 1 -q short -R rusage[mem=20000] -W240 "ngs.plot.r -G mm10 -R genebody -C ChIP.bam -O ChIP_genebodyOutput.km -L 2000 -GO km"
+
+#to extract gene order from K-means clustering
+
+$ bsub -o logT -n 1 -q short -R rusage[mem=20000] -W240 "ExtractGName.R ChIP_genebodyOutput.km"
+
+
+#tag density plot of ChIP binding at TSS with no K-means clustering
+
+$ bsub -o logT -n 1 -q short -R rusage[mem=20000] -W240 "ngs.plot.r -G mm10 -R tss -L 2000 -C ChIP.bam -O ChIP_TSS_2kb"
+
+
+
