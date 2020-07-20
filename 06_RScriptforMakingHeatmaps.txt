@@ -1,0 +1,38 @@
+Rscript for making Expression Heatmaps
+
+> setwd("set location of file you are processing")
+> install.packages("gplots")
+> install.packages("RColorBrewer")
+> install.packages("pheatmap")
+> install.packages("colorRamps")
+
+> library(gplots)
+> library(RColorBrewer)
+> library(pheatmap)
+> library(colorRamps
+
+> data=read.delim("Kan_genelist_1.txt", sep="\t", row.names="Gene", header=T)
+
+> data_mat=as.matrix(data[,1:X])
+
+*NOTE: X= number of columns in your dataset
+
+> View(data_mat)
+
+> pheatmap(data_mat[1:Y,], breaks=c(seq(-14,-1.5, length.out=64),seq(-1.4,2,length.out=64),seq(2.1,10,length.out=64)), cluster_rows = TRUE, cluster_cols = FALSE, color =colorRampPalette(c("magenta", "black", "yellow"))(length(c(seq(-14,-1.5, length.out=64),seq(-1.4,2,length.out=64), seq(2.1,10,length.out=64)))))
+
+*NOTE: Y= number of rows in your dataset
+*NOTE: breaks indicate the range for each of your colors 
+
+
+If you want to make a PDF directly, 
+
+> pdf("log2TPMtableheatmap_1.pdf", width=8, height=11)
+> pheatmap(data_mat[1:Y,], breaks=c(seq(-14,-1.5, length.out=64),seq(-1.4,2,length.out=64),seq(2.1,10,length.out=64)), cluster_rows = TRUE, cluster_cols = FALSE, color =colorRampPalette(c("magenta", "black", "yellow"))(length(c(seq(-14,-1.5, length.out=64),seq(-1.4,2,length.out=64), seq(2.1,10,length.out=64)))))
+>dev.off()
+
+
+
+
+
+

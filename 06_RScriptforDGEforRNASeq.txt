@@ -1,0 +1,32 @@
+Rscript for Differentiation Gene Expression Analysis of RNA-Seq
+
+https://bioc.ism.ac.jp/packages/2.14/bioc/vignettes/DESeq2/inst/doc/beginner.pdf
+https://lashlock.github.io/compbio/R_presentation.html
+
+Input Files Needed: 
+
+.txt file with count info from RSEM analysis of RNA-Seq data
+.txt file containing experimental data info (see website for examples)
+
+> install.packages("DESeq2")
+> install.packages("ggplot2")
+
+> library("DESeq2")
+> library("ggplot2")
+
+> file <- "D0vsD1_3T3L1_RSEM_counts_nodup.txt"
+> file2 <- "metadata.txt"
+
+> rsem <- read.table(file, sep="\t", header=TRUE, row.names=1)
+> metadata <- read.table(file2, sep="\t", header=TRUE, row.names=1)
+
+> dds <- DESeqDataSetFromMatrix(countData=rsem, 
+			colData=metadata, 
+			design=~group, tidy = TRUE)
+
+*Note: group here indicates the sample group from the metadata file
+
+> dds <- DESeq(dds)
+> res <- results(dds)
+
+> write.table(res, file=“3T3-L1_D0vsD1_DESeq_FCanalysis.txt", sep="\t")
